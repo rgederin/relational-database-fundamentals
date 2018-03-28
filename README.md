@@ -6,7 +6,7 @@ The purpose of the relational model is to provide a declarative method for speci
 
 Most relational databases use the SQL data definition and query language; these systems implement what can be regarded as an engineering approximation to the relational model. A table in an SQL database schema corresponds to a predicate variable; the contents of a table to a relation; key constraints, other constraints, and SQL queries correspond to predicates. However, SQL databases deviate from the relational model in many details, and Codd fiercely argued against deviations that compromise the original principles. In relational data model the data is organized into tables. These tables are called relations.
 
-## Key Concepts
+### Key Concepts
 
 * **Schema** - structural description of relations in database.
 * **Instance** - actual contents at given point in time.
@@ -19,7 +19,7 @@ Most relational databases use the SQL data definition and query language; these 
 
 ![relational-model](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/relational_model.png)
 
-## Advantages of relational databases
+### Advantages of relational databases
 
 * **Query flexibility.** As long as your schema is normalized, you don’t have to know up front how you will query your data. You can always gather together the data you want using joins, views, filter and indexes.
 * **Consistency via ACID transactions.** The relational database ensures that your commits are always atomic, consistent, isolated and durable. If an error occurrs, the whole transaction can be rolled back, restoring a consistent state. This is critical in some domains (e.g. banking).
