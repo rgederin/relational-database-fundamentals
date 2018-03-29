@@ -6,7 +6,7 @@ The purpose of the relational model is to provide a declarative method for speci
 
 Most relational databases use the SQL data definition and query language; these systems implement what can be regarded as an engineering approximation to the relational model. A table in an SQL database schema corresponds to a predicate variable; the contents of a table to a relation; key constraints, other constraints, and SQL queries correspond to predicates. However, SQL databases deviate from the relational model in many details, and Codd fiercely argued against deviations that compromise the original principles. In relational data model the data is organized into tables. These tables are called relations.
 
-### Key Concepts
+### Key Concepts  
 
 * **Schema** - structural description of relations in database.
 * **Instance** - actual contents at given point in time.
@@ -36,3 +36,29 @@ Most relational databases use the SQL data definition and query language; these 
 * Performance hit due to joins, ACID transactions and strict consistency constraints (especially in distributed environments).
 
 [Great article about pros and cons of relational databases](https://blog.philipphauer.de/relational-databases-strength-weaknesses-mongodb/)
+
+
+## Relational algebra
+
+Relational algebra, first created by Edgar F. Codd while at IBM, is a family of algebras with a well-founded semantics used for modelling the data stored in relational databases, and defining queries on it.
+
+The main application of relational algebra is providing a theoretical foundation for relational databases, particularly query languages for such databases, chief among which is SQL.
+
+### Relational algebra operations
+
+For understanding it is important to remember that the **result of any operation of algebra over relations is another relationship**, which can then also be used in other operations.
+
+**Selection operator (σ)** 
+
+Selection operator is used to select tuples from a relation based on some condition. 
+
+```
+σ (Cond)(Relation Name)
+
+```
+
+Extract students whose age is greater than 18 from STUDENT relation
+
+```
+σ (AGE>18)(STUDENT)
+```
