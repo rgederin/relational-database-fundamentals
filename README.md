@@ -48,17 +48,38 @@ The main application of relational algebra is providing a theoretical foundation
 
 For understanding it is important to remember that the **result of any operation of algebra over relations is another relationship**, which can then also be used in other operations.
 
-**Selection operator (σ)** 
+**Selection (σ)** 
 
-Selection operator is used to select tuples from a relation based on some condition. 
+Selection operator is used to select tuples (rows) from a relation based on some condition. 
 
 ```
 σ (Cond)(Relation Name)
-
 ```
 
 Extract students whose age is greater than 18 from STUDENT relation
 
 ```
 σ (AGE>18)(STUDENT)
+```
+
+**Projection (∏)**
+
+A projection is an operation where only attributes from the specified domains are selected from the relation, that is, only the necessary columns are selected from the table, and if several identical tuples are obtained, then in the resulting relation there is only one copy of such a tuple.
+
+```
+∏(Column 1,Column 2….Column n)(Relation Name)
+```
+
+Extract ID and NAME columns from STUDENT relation
+
+```
+∏(ID,NAME)(STUDENT)
+```
+
+**Cross Product(X)**
+
+Cross product is used to join two relations. For every row of Relation1, each row of Relation2 is concatenated. If Relation1 has m tuples and and Relation2 has n tuples, cross product of Relation1 and Relation2 will have m X n tuples.
+
+```
+Relation1 X Relation2
 ```
