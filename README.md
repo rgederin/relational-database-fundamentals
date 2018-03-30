@@ -124,3 +124,41 @@ Intersection on two relations R1 and R2 can only be computed if R1 and R2 are un
 Example: Find a person who is student as well as employee -  STUDENT ∩ EMPLOYE
 ```
 
+**Conditional Join (⋈c)** 
+
+Conditional Join is used when you want to join two or more relation based on some conditions. Example: Select students whose ROLL_NO is greater than EMP_NO of employees
+
+**Equijoin (⋈)**
+ 
+Equijoin is a special case of conditional join where only equality condition holds between a pair of attributes. As values of two attributes will be equal in result of equijoin, only one attribute will be appeared in result.
+
+**Natural Join (⋈)**
+ 
+It is a special case of equijoin in which equality condition hold on all attributes which have same name in relations R and S (relations on which join operation is applied). While applying natural join on two relations, there is no need to write equality condition explicitly. Natural Join will also return the similar attributes only once as their value will be same in resulting relation.
+
+Example: Select students whose ROLL_NO is equal to ROLL_NO of STUDENT_SPORTS 
+
+Natural Join is by default inner join because the tuples which does not satisfy the conditions of join does not appear in result set. e.g.; The tuple having ROLL_NO 3 in STUDENT does not match with any tuple in STUDENT_SPORTS, so it has not been a part of result set.
+
+**Left Outer Join (⟕)** 
+
+When applying join on two relations R and S, some tuples of R or S does not appear in result set which does not satisfy the join conditions. But Left Outer Joins gives all tuples of R in the result set. The tuples of R which do not satisfy join condition will have values as NULL for attributes of S.
+
+**Right Outer Join (⟖)**
+
+When applying join on two relations R and S, some tuples of R or S does not appear in result set which does not satisfy the join conditions. But Right Outer Joins gives all tuples of S in the result set. The tuples of S which do not satisfy join condition will have values as NULL for attributes of R.
+
+**Full Outer Join (⟗)** 
+
+When applying join on two relations R and S, some tuples of R or S does not appear in result set which does not satisfy the join conditions. But Full Outer Joins gives all tuples of S and all tuples of R in the result set. The tuples of S which do not satisfy join condition will have values as NULL for attributes of R and vice versa.
+
+**Division Operator (÷)** 
+
+Division operator A÷B can be applied if and only if:
+
+* Attributes of B is proper subset of Attributes of A.
+* The relation returned by division operator will have attributes = (All attributes of A – All Attributes of B)
+* The relation returned by division operator will return those tuples from relation A which are associated to every B’s tuple.
+
+![sql](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/sql.jpg)
+
