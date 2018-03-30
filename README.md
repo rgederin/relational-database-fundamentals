@@ -44,7 +44,7 @@ Relational algebra, first created by Edgar F. Codd while at IBM, is a family of 
 
 The main application of relational algebra is providing a theoretical foundation for relational databases, particularly query languages for such databases, chief among which is SQL.
 
-### Relational algebra operations
+### Basic Relational algebra operations
 
 For understanding it is important to remember that the **result of any operation of algebra over relations is another relationship**, which can then also be used in other operations.
 
@@ -76,10 +76,51 @@ Extract ID and NAME columns from STUDENT relation
 ∏(ID,NAME)(STUDENT)
 ```
 
-**Cross Product(X)**
+**Cross Product (X)**
 
-Cross product is used to join two relations. For every row of Relation1, each row of Relation2 is concatenated. If Relation1 has m tuples and and Relation2 has n tuples, cross product of Relation1 and Relation2 will have m X n tuples.
+Cross product (Cartesian Product) is used to join two relations. For every row of Relation1, each row of Relation2 is concatenated. If Relation1 has m tuples and and Relation2 has n tuples, cross product of Relation1 and Relation2 will have m X n tuples.
 
 ```
 Relation1 X Relation2
 ```
+
+**Union (U)** 
+
+Union on two relations R1 and R2 can only be computed if R1 and R2 are union compatible (These two relation should have same number of attributes and corresponding attributes in two relations have same domain) . Union operator when applied on two relations R1 and R2 will give a relation with tuples which are either in R1 or in R2. The tuples which are in both R1 and R2 will appear only once in result relation.
+
+```
+Relation1 U Relation2
+```
+
+**Minus (-)**
+
+Minus on two relations R1 and R2 can only be computed if R1 and R2 are union compatible. Minus operator when applied on two relations as R1-R2 will give a relation with tuples which are in R1 but not in R2.
+
+```
+Relation1 - Relation2
+```
+
+**Rename (ρ)**
+ 
+Rename operator is used to give another name to a relation. To rename STUDENT relation to STUDENT1, we can use rename operator like:
+
+```
+ρ(STUDENT1, STUDENT)
+```
+
+#### Extended Relational algebra operations
+
+Extended operators are those operators which can be derived from basic operators.There are mainly three types of extended operators in Relational Algebra:
+
+* Join
+* Intersection
+* Divide 
+
+**Intersection (∩)** 
+
+Intersection on two relations R1 and R2 can only be computed if R1 and R2 are union compatible (These two relation should have same number of attributes and corresponding attributes in two relations have same domain). Intersection operator when applied on two relations as R1∩R2 will give a relation with tuples which are in R1 as well as R2
+
+```
+Example: Find a person who is student as well as employee -  STUDENT ∩ EMPLOYE
+```
+
