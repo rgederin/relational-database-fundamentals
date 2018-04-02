@@ -162,3 +162,48 @@ Division operator A÷B can be applied if and only if:
 
 ![sql](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/sql.jpg)
 
+## Structured Query Language (SQL)
+
+Structured Query Language is a standard Database language which is used to create, maintain and retrieve the relational database.
+
+All SQL commands could be separated as Data Definition Language, Data Manipulation Language, Transaction Control Language and Data Control Language.
+
+![sql](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/sql-commands.jpg)
+
+
+**Data Definition Language (DDL)** is used to define database structure or schema. DDL is also used to specify additional properties of the data. The storage structure and access methods used by the database system by a set of statements in a special type of DDL called a data storage and definition language. These statements defines the implementation details of the database schema, which are usually hidden from the users. The data values stored in the database must satisfy certain consistency constraints.
+
+```
+CREATE : to create objects in database
+ALTER : alters the structure of database
+DROP : delete objects from database
+RENAME : rename an objects
+```
+
+**Data Manipulation Language (DML)**  used for managing data with in schema objects
+
+```
+SELECT : retrieve data from the database
+INSERT : insert data into a table
+UPDATE : update existing data within a table
+DELETE : deletes all records from a table , space for the records remain
+```
+
+**Transaction Control Language (TCL)** commands are used to manage transactions in database. These are used to manage the changes made by DML-statements. It also allows statements to be grouped together into logical transactions.
+
+```
+COMMIT :    Commit command is used to permanently save any transaction
+            into database.
+ROLLBACK :  This command restores the database to last committed state.
+            It is also use with savepoint command to jump to a savepoint
+            in a transaction.
+SAVEPOINT : Savepoint command is used to temporarily save a transaction so
+            that you can rollback to that point whenever necessary.
+```
+
+**Data Control Language (DCL)** is a syntax similar to a computer programming language used to control access to data stored in a database (Authorization). In particular, it is a component of Structured Query Language (SQL).
+
+```
+GRANT : allow specified users to perform specified tasks.
+REVOKE : cancel previously granted or denied permissions.
+```
