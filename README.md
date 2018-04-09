@@ -212,8 +212,108 @@ REVOKE : cancel previously granted or denied permissions.
 
 For all examples I will use next database which consists of 3 tables:
 
+```
 College(cName,state,enrollment) 
 Student(sID,sName,GPA,sizeHS)
 Apply(sID,cName,major,decision)
+```
+
+We have the college relation: college relation contains information about the name of the colleges, the state, and the enrollment of those colleges.
+We have the student relation, which contains student IDs, their names,their GPA, and the size of the high school that they come from.
+And finally, the application information, that tells us that a particular student applied to a particular college for a particular major and there was a decision of that application
 
 ![sql](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/db-str.png)
+
+### Basic select
+
+IDs, names, and GPAs of students with GPA > 3.6:
+
+```
+select sID, sName, GPA
+from Student
+where GPA > 3.6;
+```
+
+Student names and majors for which they've applied - output will contains duplicates:
+
+```
+select sName, major
+from Student, Apply
+where Student.sID = Apply.sID;
+```
+
+Same query with **distinct** statement for removing duplicates:
+
+```
+select distinct sName, major
+from Student, Apply
+where Student.sID = Apply.sID;
+```
+
+Names and GPAs of students with sizeHS < 1000 applying to CS at Stanford, and the application decision:
+
+```
+select sname, GPA, decision
+from Student, Apply
+where Student.sID = Apply.sID
+  and sizeHS < 1000 and major = 'CS' and cname = 'Stanford';
+```
+
+All large campuses with CS applicants - using name of relations for solving ambiguous column names:
+
+```
+select distinct College.cName
+from College, Apply
+where College.cName = Apply.cName
+  and enrollment > 20000 and major = 'CS';
+```
+
+Application information (cross product for all three relations):
+
+```
+select Student.sID, sName, GPA, Apply.cName, enrollment
+from Student, College, Apply
+where Apply.sID = Student.sID and Apply.cName = College.cName;
+
+```
+
+Sort by decreasing GPA - using **order by** keyword and specifying descening order (**desc**):
+
+```
+select Student.sID, sName, GPA, Apply.cName, enrollment
+from Student, College, Apply
+where Apply.sID = Student.sID and Apply.cName = College.cName
+order by GPA desc;
+```
+
+We could have several sorting in one querry:
+
+```
+select Student.sID, sName, GPA, Apply.cName, enrollment
+from Student, College, Apply
+where Apply.sID = Student.sID and Apply.cName = College.cName
+order by GPA desc, enrollment;
+```
+
+Using **like** predicate - querry will return such majors like biology, marin biology, etc : 
+
+```
+select sID, major
+from Apply
+where major like '%bio%';
+
+```
+
+Add scaled GPA based on sizeHS:
+
+```
+select sID, sName, GPA, sizeHS, GPA*(sizeHS/1000.0)
+from Student;
+```
+
+Rename result attribute (using **as**):
+
+```
+select sID, sName, GPA, sizeHS, GPA*(sizeHS/1000.0) as scaledGPA
+from Student;
+```
