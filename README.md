@@ -317,3 +317,67 @@ Rename result attribute (using **as**):
 select sID, sName, GPA, sizeHS, GPA*(sizeHS/1000.0) as scaledGPA
 from Student;
 ```
+
+### Table Variables and Set Operators
+
+Application information using table variables for increasing readability:
+
+```
+select S.sID, S.sName, S.GPA, A.cName, C.enrollment
+from Student S, College C, Apply A
+where A.sID = S.sID and A.cName = C.cName;
+```
+
+Pairs of students with same GPA without self-pairings and reverse-pairings:
+
+```
+select S1.sID, S1.sName, S1.GPA, S2.sID, S2.sName, S2.GPA
+from Student S1, Student S2
+where S1.GPA = S2.GPA and S1.sID < S2.sID;
+```
+
+List of college names and student names - using **union** operator (without duplicates, **union all** will leave duplicates):
+
+```
+select cName as name from College
+union
+select sName as name from Student;
+```
+
+IDs of students who applied to both CS and EE - using **intersection** operator:
+
+```
+select sID from Apply where major = 'CS'
+intersect
+select sID from Apply where major = 'EE';
+```
+
+IDs of students who applied to CS but not EE - using **except** operator:
+
+```
+select sID from Apply where major = 'CS'
+except
+select sID from Apply where major = 'EE';
+```
+
+
+### Subqueries in WHERE
+
+Sub-queries are nested, select statements within the condition.
+
+IDs and names of students applying to CS:
+
+```
+select sID, sName
+from Student
+where sID in (select sID from Apply where major = 'CS');
+```
+
+Students who applied to CS but not EE (query we used 'Except' for earlier):
+
+```
+select sID, sName
+from Student
+where sID in (select sID from Apply where major = 'CS')
+  and sID not in (select sID from Apply where major = 'EE');
+```
