@@ -207,3 +207,13 @@ SAVEPOINT : Savepoint command is used to temporarily save a transaction so
 GRANT : allow specified users to perform specified tasks.
 REVOKE : cancel previously granted or denied permissions.
 ```
+
+## SQL examples
+
+For all examples I will use next database which consists of 3 tables:
+
+College(cName,state,enrollment) 
+Student(sID,sName,GPA,sizeHS)
+Apply(sID,cName,major,decision)
+
+![sql](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/db-str.png)
