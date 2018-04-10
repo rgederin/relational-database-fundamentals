@@ -361,7 +361,7 @@ select sID from Apply where major = 'EE';
 ```
 
 
-### Subqueries in WHERE
+### Subqueries
 
 Sub-queries are nested, select statements within the condition.
 
@@ -381,3 +381,108 @@ from Student
 where sID in (select sID from Apply where major = 'CS')
   and sID not in (select sID from Apply where major = 'EE');
 ```
+
+Colleges such that some other college is in the same state (like Berkeley and Stanford in the same state):
+
+```
+select cName, state
+from College C1
+where exists (select * from College C2
+              where C2.state = C1.state and C2.cName <> C1.cName);
+```
+
+Higher GPA than all other students:
+
+```
+select sName, GPA
+from Student
+where GPA >= all (select GPA from Student);
+
+```
+
+Students whose scaled GPA changes GPA by more than 1:
+
+```
+select *
+from (select sID, sName, GPA, GPA*(sizeHS/1000.0) as scaledGPA
+      from Student) G
+where abs(scaledGPA - GPA) > 1.0;
+```
+
+### Aggregation functions
+
+These are functions that will appear in the select clause initially and what they do is they perform computations over sets of values in multiple rows of our relations, and the basic aggregation functions supported by every SQL system are minimum, maximum, some, average and count.
+
+Now once we've introduced the aggregation functions we can also add two new clasues to the SQL select from where statement, the **group by** and **having** clause.
+
+The group by allows us to partition our relations into groups and then will compute aggregated aggregate functions over each group independently.
+The having condition allows us to test filters on the results of aggregate values. The where condition applies to single rows at a time. The having condition will apply to the groups that we generate from the group by clause.
+
+
+Average GPA of all students:
+
+```
+select avg(GPA)
+from Student;
+```
+
+Lowest GPA of students applying to CS:
+
+```
+select min(GPA)
+from Student, Apply
+where Student.sID = Apply.sID and major = 'CS';
+```
+
+Number of colleges bigger than 15,000:
+
+```
+select count(*)
+from College
+where enrollment > 15000;
+```
+
+Number of applications to each college:
+
+```
+select cName, count(*)
+from Apply
+group by cName;
+```
+
+College enrollments by state:
+
+```
+select state, sum(enrollment)
+from College
+group by state;
+```
+
+Minimum + maximum GPAs of applicants to each college & major:
+
+```
+select cName, major, min(GPA), max(GPA)
+from Student, Apply
+where Student.sID = Apply.sID
+group by cName, major;
+```
+
+Colleges with fewer than 5 applications:
+
+```
+select cName
+from Apply
+group by cName
+having count(distinct sID) < 5;
+```
+
+Majors whose applicant's maximum GPA is below the average:
+
+```
+select major
+from Student, Apply
+where Student.sID = Apply.sID
+group by major
+having max(GPA) < (select avg(GPA) from Student);
+```
+
