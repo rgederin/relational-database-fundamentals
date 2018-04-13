@@ -473,7 +473,7 @@ Colleges with fewer than 5 applications:
 select cName
 from Apply
 group by cName
-having count(distinct sID) < 5;
+having count(sID) < 5;
 ```
 
 Majors whose applicant's maximum GPA is below the average:
@@ -486,3 +486,94 @@ group by major
 having max(GPA) < (select avg(GPA) from Student);
 ```
 
+## Join Operators
+
+Student names and majors for which they've applied
+
+```
+select distinct sName, major
+from Student inner join Apply
+on Student.sID = Apply.sID;
+```
+
+**Inner join** could be simplified to just **join**
+
+```
+select distinct sName, major
+from Student join Apply
+on Student.sID = Apply.sID;
+```
+
+Names and GPAs of students with sizeHS < 1000 applying to CS at Stanford
+
+```
+select sName, GPA
+from Student join Apply
+on Student.sID = Apply.sID
+where sizeHS < 1000 and major = 'CS' and cName = 'Stanford';
+```
+
+THREE-WAY INNER JOIN - application info: ID, name, GPA, college name, enrollment
+
+```
+select Apply.sID, sName, GPA, Apply.cName, enrollment
+from (Apply join Student on Apply.sID = Student.sID) join College on Apply.cName = College.cName;
+```
+
+NATURAL JOIN - student names and majors for which they've applied
+
+```
+select distinct sName, major
+from Student natural join Apply;
+```
+
+NATURAL JOIN WITH ADDITIONAL CONDITIONS - Names and GPAs of students with sizeHS < 1000 applying to CS at Stanford
+
+```
+select sName, GPA
+from Student natural join Apply
+where sizeHS < 1000 and major = 'CS' and cName = 'Stanford';
+```
+
+USING clause considered safer 
+
+```
+select sName, GPA
+from Student join Apply using(sID)
+where sizeHS < 1000 and major = 'CS' and cName = 'Stanford';
+```
+
+SELF-JOIN - Pairs of students with same GPA
+
+```
+select S1.sID, S1.sName, S1.GPA, S2.sID, S2.sName, S2.GPA
+from Student S1 join Student S2 using(GPA)
+where S1.sID < S2.sID;
+```
+
+LEFT OUTER JOIN - student application info: name, ID, college name, major and Include students who haven't applied anywhere
+
+```
+select sName, sID, cName, major
+from Student left outer join Apply using(sID);
+
+select sName, sID, cName, major
+from Student left join Apply using(sID);
+
+select sName, sID, cName, major
+from Student natural left outer join Apply;
+```
+
+RIGHT OUTER JOIN - student application info: name, ID, college name, major. Include applications without matching students
+
+```
+select sName, sID, cName, major
+from Student natural right outer join Apply;
+```
+
+FULL OUTER JOIN - Student application info .Include students who haven't applied anywhere and applications without matching students
+
+```
+select sName, sID, cName, major
+from Student full outer join Apply using(sID);
+```
