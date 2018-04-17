@@ -577,3 +577,23 @@ FULL OUTER JOIN - Student application info .Include students who haven't applied
 select sName, sID, cName, major
 from Student full outer join Apply using(sID);
 ```
+
+## Database normalization
+
+Normalization is the process of splitting relations into well structured relations that allow users to insert, delete, and update tuples without introducing database inconsistencies. Without normalization many problems can occur when trying to load an integrated conceptual model into the DBMS. These problems arise from relations that are generated directly from user views are called anomalies. There are three types of anomalies: update, deletion and insertion anomalies.
+
+
+### Anomalies
+
+Relation which are using for anomalies examples
+
+![sql](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/anomalies.png)
+
+An **update anomaly** is a data inconsistency that results from data redundancy and a partial update. For example, each employee in a company has a department associated with them as well as the student group they participate in. 
+If A. Bruchs’ department is an error it must be updated at least 2 times or there will be inconsistent data in the database. If the user performing the update does not realize the data is stored redundantly the update will not be done properly.
+
+A **deletion anomaly** is the unintended loss of data due to deletion of other data. For example, if the student group Beta Alpha Psi disbanded and was deleted from the table above, J. Longfellow and the Accounting department would cease to exist. This results in database inconsistencies and is an example of how combining information that does not really belong together into one table can cause problems.
+
+An **insertion anomaly** is the inability to add data to the database due to absence of other data. For example, assume Student_Group is defined so that null values are not allowed. If a new employee is hired but not immediately assigned to a Student_Group then this employee could not be entered into the database. This results in database inconsistencies due to omission.
+
+Update, deletion, and insertion anomalies are very undesirable in any database. Anomalies are avoided by the process of normalization.
