@@ -597,3 +597,42 @@ A **deletion anomaly** is the unintended loss of data due to deletion of other d
 An **insertion anomaly** is the inability to add data to the database due to absence of other data. For example, assume Student_Group is defined so that null values are not allowed. If a new employee is hired but not immediately assigned to a Student_Group then this employee could not be entered into the database. This results in database inconsistencies due to omission.
 
 Update, deletion, and insertion anomalies are very undesirable in any database. Anomalies are avoided by the process of normalization.
+
+### Functional dependency
+
+Functional Dependency is a constraint between two sets of attributes in a relation from a database. Functional dependency is denoted by arrow (→). If an attributed A functionally determines B, then it is written as A → B.
+
+For example employee_id → name means employee_id functionally determines name of employee. As another example in a time table database, {student_id, time} → {lecture_room}, student ID and time determine the lecture room where student should be.
+
+A function dependency A → B mean for all instances of a particular value of A, there is same value of B.
+
+For example in the below table A → B is true, but B → A is not true as there are different values of A for B = 3.
+
+```
+A   B
+-----
+1   3
+2   3
+4   0
+1   3
+4   0
+```
+
+**Trivial Functional Dependency**
+
+X –> Y is trivial only when Y is subset of X.
+
+```
+ABC --> AB
+ABC --> A
+ABC --> ABC
+```
+
+X –> Y is a **non trivial functional dependencies** when Y is not a subset of X.
+
+X –> Y is called completely non-trivial when X intersect Y is NULL.
+
+```
+Id --> Name, 
+Name --> DOB
+```
