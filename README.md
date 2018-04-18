@@ -397,7 +397,6 @@ Higher GPA than all other students:
 select sName, GPA
 from Student
 where GPA >= all (select GPA from Student);
-
 ```
 
 Students whose scaled GPA changes GPA by more than 1:
@@ -578,12 +577,12 @@ select sName, sID, cName, major
 from Student full outer join Apply using(sID);
 ```
 
-## Database normalization
+# Database normalization
 
 Normalization is the process of splitting relations into well structured relations that allow users to insert, delete, and update tuples without introducing database inconsistencies. Without normalization many problems can occur when trying to load an integrated conceptual model into the DBMS. These problems arise from relations that are generated directly from user views are called anomalies. There are three types of anomalies: update, deletion and insertion anomalies.
 
 
-### Anomalies
+## Anomalies
 
 Relation which are using for anomalies examples
 
@@ -598,7 +597,7 @@ An **insertion anomaly** is the inability to add data to the database due to abs
 
 Update, deletion, and insertion anomalies are very undesirable in any database. Anomalies are avoided by the process of normalization.
 
-### Functional dependency
+## Functional dependency
 
 Functional Dependency is a constraint between two sets of attributes in a relation from a database. Functional dependency is denoted by arrow (→). If an attributed A functionally determines B, then it is written as A → B.
 
@@ -636,3 +635,17 @@ X –> Y is called completely non-trivial when X intersect Y is NULL.
 Id --> Name, 
 Name --> DOB
 ```
+
+## Normalization of relations. Six normal forms
+ 
+The process of designing a database using the NF method is iterative and consists in the sequential transformation of the relation from 1NF to NF of a higher order according to certain rules. 
+
+Each next NF is limited to a certain type of functional dependencies and elimination of corresponding anomalies when performing operations on database relations, as well as preserving the properties of previous NFs
+
+### 1 NF
+The relation is in 1NF if all its attributes (cells) are simple, all used domains (types) should contain only scalar values. There should be no repetitions of the rows in the table.
+
+| Firm          | Models        |
+| ------------- | ------------- |
+| BMW           | M5, X5M, M1   |
+| Nissan        | GTR           |
