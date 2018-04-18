@@ -636,27 +636,17 @@ Id --> Name,
 Name --> DOB
 ```
 
-## Normalization of relations. Six normal forms
+## Normalization of relations. Normal forms
  
 The process of designing a database using the NF method is iterative and consists in the sequential transformation of the relation from 1NF to NF of a higher order according to certain rules. 
 
 Each next NF is limited to a certain type of functional dependencies and elimination of corresponding anomalies when performing operations on database relations, as well as preserving the properties of previous NFs
 
 ### 1 NF
-The relation is in 1NF if all its attributes (cells) are simple, all used domains (types) should contain only scalar values. There should be no repetitions of the rows in the table.
 
-| Firm          | Models        |
-| ------------- | ------------- |
-| BMW           | M5, X5M, M1   |
-| Nissan        | GTR           |
+If a relation contain composite or multi-valued attribute, it violates first normal form or a relation is in first normal form if it does not contain any composite or multi-valued attribute. A relation is in first normal form if every attribute in that relation is singled valued attribute.
 
+Relation STUDENT in table 1 is not in 1NF because of multi-valued attribute STUD_PHONE. Its decomposition into 1NF has been shown in table 2.
 
-Violation of the normalization of 1NF occurs in BMW models, because in one cell contains a list of 3 elements: M5, X5M, M1, i.e. it is not atomic. Convert the table to 1NF:
-
-| Firm          | Models        |
-| ------------- | ------------- |
-| BMW           | M5         |
-| BMW           | X5M           |
-| BMW           | M1            |
-| Nissan        | GTR           |
+![nf1](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/nf1.png)
 
