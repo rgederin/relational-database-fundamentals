@@ -673,3 +673,8 @@ To convert it to second normal form, we will decompose the relation STUDENT_COUR
 STUDENT_COURSE (STUD_NO, COURSE_NO)
 COURSE (COURSE_NO, COURSE_NAME)
 ```
+
+### 3 NF
+
+The relation is in 3NF when it is in 2NF and each non-key attribute is not reliantly (non trasitively) dependent on the primary key. Simply put, the second rule requires you to move all non-key fields whose contents can relate to several table entries in separate tables.
+
