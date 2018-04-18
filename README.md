@@ -649,3 +649,14 @@ The relation is in 1NF if all its attributes (cells) are simple, all used domain
 | ------------- | ------------- |
 | BMW           | M5, X5M, M1   |
 | Nissan        | GTR           |
+
+
+Violation of the normalization of 1NF occurs in BMW models, because in one cell contains a list of 3 elements: M5, X5M, M1, i.e. it is not atomic. Convert the table to 1NF:
+
+| Firm          | Models        |
+| ------------- | ------------- |
+| BMW           | M5         |
+| BMW           | X5M           |
+| BMW           | M1            |
+| Nissan        | GTR           |
+
