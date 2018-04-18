@@ -654,7 +654,7 @@ Relation STUDENT in table 1 is not in 1NF because of multi-valued attribute STUD
 
 To be in second normal form, a relation must be in first normal form and relation must not contain any partial dependency. A relation is in 2NF iff it has No Partial Dependency, i.e., no non-prime attribute (attributes which are not part of any candidate key) is dependent on any proper subset of any candidate key of the table.
 
-![nf2](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/nf1.png)
+![nf2](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/nf2.png)
 
 Partial Dependency – If proper subset of candidate key determines non-prime attribute, it is called partial dependency.
 
