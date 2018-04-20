@@ -717,3 +717,21 @@ In distributed transactions, all participating servers must coordinate before co
 
 Many DBMSs implement durability by writing transactions into a transaction log that can be reprocessed to recreate the system state right before any later failure. A transaction is deemed committed only after it is entered in the log.
 
+## Transaction phenomenas/problems
+
+There are 4 phenomenas/problems
+
+* Lost update
+* Dirty read
+* Non-repeatebale read
+* Phantom read
+
+### Lost update
+
+If two transactions are updating different columns of the same row, then there is no conflict. The second update blocks until the first transaction is committed and the final result reflects both update changes.
+
+If the two transactions want to change the same columns, the second transaction will overwrite the first one, therefore losing the first transaction update.
+
+So an update is lost when a user overrides the current database state without realizing that someone else changed it between the moment of data loading and the moment the update occurs.
+
+![lost](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/lost.png)
