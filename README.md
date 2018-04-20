@@ -852,3 +852,66 @@ Now it’s not as quick as using the clustered index. Why? We still need to read
 
 * Indexes take additional disk space.
 * Indexes slow down INSERT,UPDATE and DELETE, but will speed up UPDATE if the WHERE condition has an indexed field.  INSERT, UPDATE and DELETE becomes slower because on each operation the indexes must also be updated. 
+
+### Implementation
+As we mentioned previously in the SQL tutorial, DDL operations manage table and index structure. That is, we can CREATE, ALTER, or DROP an index.
+
+The syntax to create and delete indexes varies among different databases. Therefore, you need to check the syntax for creating indexes in your database. We’ll use MySQL to get an idea on how they can be created, and deleted.
+
+**CREATE**
+
+There are two ways to create an index, either when creating a table, or using the CREATE INDEX statement.
+
+```
+-- Create an index in CREATE TABLE (duplicate values are allowed)
+CREATE TABLE books (
+    title VARCHAR(255),
+    INDEX index_name (title)
+);
+
+-- Create an index in CREATE TABLE (duplicate values aren't allowed)
+CREATE TABLE books (
+    title VARCHAR(255),
+    UNIQUE INDEX index_name (title)
+);
+
+-- Create an index (duplicate values are allowed)
+CREATE INDEX index_name ON table_name (column_name);
+
+-- Create a unique index (duplicate values aren't allowed)
+CREATE UNIQUE INDEX index_name ON table_name (column_name);
+```
+
+The CREATE INDEX statement is mapped to an ALTER TABLE statement to create indexes.
+
+If you want to create an index on a combination of columns, you can list the column names within the parentheses, separated by commas.
+
+```
+CREATE INDEX index_name ON table_name (column_A, column_B, ...);
+```
+
+The index table will be sorted on column A, then with A, there would be the B’s in order as well. So, It’s more efficient to specify the columns in the order as in the index definition to speed up queries on the table.
+
+**ALTER**
+
+The ALTER TABLE statement changes the structure of a table. One example is to create or destroy indexes.
+
+```
+-- Add an index to existing table
+ALTER TABLE tbl_name ADD INDEX index_name (col_name);
+
+-- Add a unique (no duplicates) index to existing table
+ALTER TABLE tbl_name ADD UNIQUE INDEX index_name (col_name);
+
+-- Delete an index in an existing table
+ALTER TABLE tbl_name DROP INDEX index_name;
+```
+
+**DROP**
+
+The DROP INDEX statement deletes an index a table. The DROP INDEX statement is mapped to an ALTER TABLE statement to drop the index. 
+
+```
+DROP INDEX index_name ON tbl_name;
+```
+
