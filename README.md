@@ -785,3 +785,70 @@ With a lock-based concurrency control DBMS implementation, serializability requi
 When using non-lock based concurrency control, no locks are acquired; however, if the system detects a write collision among several concurrent transactions, only one of them is allowed to commit. See snapshot isolation for more details on this topic.
 
 ![lost](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/isolation.png)
+
+## Indexes
+
+An index is a data structure that optimize searching and accessing the data. It’s like an index at the back of a book. When your database start to grow, the performance will be a concern. Hence, getting directly to a specific row in a large table in the least possible time is a priority.
+
+One of the ways that will optimize your database searching and accessing is having indexes on the columns that you usually access the table using it.
+
+What the DBMS will do when you ask for a specific row, it will go sequentially and check with every row; “Is this the row that I need?”, If yes return it, if no, keep searching till the end.
+
+But, we have a better way to do that. An index, as we’ve mentioned, is a data structure, it won’t be obvious for you, but it’s stored inside the DBMS, most commonly as a B, B+ trees or hash tables.
+
+**By default, Most of the DBMS automatically create an index on primary and unique columns.**
+
+### How Indexes Work
+
+Let’s say that you have an index for a primary key. This will create an ordered list of primary key values in a separate table, each entry has a pointer points to the relative value in the original table.
+
+So, whenever you want to access a table using the primary key, it will use binary search algorithm (takes time of O(LogN)) to access the required value in the Index table, and then, go to the relative value in the original table.
+
+![index](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/index.png)
+
+And, definitely, you can create another index on another column, even if it’s a non-primary column, like first name, assuming that you usually access the table using that column.
+
+The decision for choosing another column (besides the primary key) to be indexed-ed can be delayed until the database has been used for a while. This is because we want to know how users are really using our database, and what kind of queries they’re running rather than how we hoped or thought.
+
+### Composit index
+
+You can also create an index on a combination of columns, meaning if you often access the table using the first name, and last name, you can create an index on both, the first name and last name.
+
+Now, the Index table will be sorted according to the first name, and for each value of the first name it will be sorted according to the last name.
+
+When you access the data, It’s more efficient to specify the columns in the right order as in the index definition. So, here, it should be first name, then last name, and not the vice-versa.
+
+### Clustered & Non-Clustered Indexes
+
+A table can have only one clustered index, while it can have more than one non-clustered index.
+
+**Clustered index**
+
+Every table can have one and only one clustered index. The most common clustered index in any database table is the primary key column.
+
+The database will then order the data in the table based on the clustered index; no Index table need to be created. The binary search algorithm will be used to get to the required data in the table (already ordered).
+
+**Non-Clustered index**
+
+If you found yourself often also accessing the data using another column, we can create a secondary index; a non-clustered index.
+
+Let’s say we want to create a secondary index for the last name, while the clustered index is the employee id. It’s created in a separate table, it has two columns, one for the last name, and one for the corresponding employee id.
+
+The created table is now sorted by last name, the way that we can’t actually do in the employee table, because we’re already sorted by the employee id.
+
+Now it’s not as quick as using the clustered index. Why? We still need to read from the table created for secondary index then jump to the employee table to get to a specific employee. But, it’s much quicker than a full table scan.
+
+![clustered](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/clustered.png)
+
+### Advantages/Disadvantages of using indexes
+
+**Advantages**
+
+* Speed up SELECT query
+* Helps to make a row unique or without duplicates(primary,unique) 
+* If index is set to fill-text index, then we can search against large string values. for example to find a word from a sentence etc.
+
+**Disadvantages**
+
+* Indexes take additional disk space.
+* Indexes slow down INSERT,UPDATE and DELETE, but will speed up UPDATE if the WHERE condition has an indexed field.  INSERT, UPDATE and DELETE becomes slower because on each operation the indexes must also be updated. 
