@@ -678,3 +678,40 @@ COURSE (COURSE_NO, COURSE_NAME)
 
 The relation is in 3NF when it is in 2NF and each non-key attribute is not reliantly (non trasitively) dependent on the primary key. Simply put, the second rule requires you to move all non-key fields whose contents can relate to several table entries in separate tables.
 
+## Transactions
+
+A transaction is a single logical unit of work which accesses and possibly modifies the contents of a database. Transactions access data using read and write operations.
+
+In order to maintain consistency in a database, before and after transaction, certain properties are followed. These are called **ACID properties**.
+
+### ACID
+
+**Atomicity**
+
+This property means that either the entire transaction takes place at once or doesn’t happen at all. There is no midway i.e. transactions do not occur partially. Each transaction is considered as one unit and either runs to completion or is not executed at all. It involves following two operations.
+
+* Abort: If a transaction aborts, changes made to database are not visible.
+* Commit: If a transaction commits, changes made are visible.
+
+Atomicity is also known as the **‘All or nothing rule’**.
+
+**Consistency**
+
+Consistency in database systems refers to the requirement that any given database transaction must change affected data only in allowed ways. Any data written to the database must be valid according to all defined rules, including constraints, cascades, triggers, and any combination thereof.
+
+This means that integrity constraints must be maintained so that the database is consistent before and after the transaction. It refers to correctness of a database. 
+
+**Isolation**
+
+This property ensures that multiple transactions can occur concurrently without leading to inconsistency of database state. Transactions occur independently without interference. Changes occurring in a particular transaction will not be visible to any other transaction until that particular change in that transaction is written to memory or has been committed. This property ensures that the execution of transactions concurrently will result in a state that is equivalent to a state achieved these were executed serially in some order.
+
+**Durability**
+
+In database systems, durability is the ACID property which guarantees that transactions that have committed will survive permanently. For example, if a flight booking reports that a seat has successfully been booked, then the seat will remain booked even if the system crashes.
+
+Durability can be achieved by flushing the transaction's log records to non-volatile storage before acknowledging commitment.
+
+In distributed transactions, all participating servers must coordinate before commit can be acknowledged. This is usually done by a two-phase commit protocol.
+
+Many DBMSs implement durability by writing transactions into a transaction log that can be reprocessed to recreate the system state right before any later failure. A transaction is deemed committed only after it is entered in the log.
+
