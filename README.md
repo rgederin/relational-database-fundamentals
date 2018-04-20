@@ -735,3 +735,21 @@ If the two transactions want to change the same columns, the second transaction 
 So an update is lost when a user overrides the current database state without realizing that someone else changed it between the moment of data loading and the moment the update occurs.
 
 ![lost](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/lost.png)
+
+### Dirty read
+
+A dirty read occurs when a transaction reads data that has not yet been committed. For example, suppose transaction 1 updates a row. Transaction 2 reads the updated row before transaction 1 commits the update. If transaction 1 rolls back the change, transaction 2 will have read data that is considered never to have existed.
+
+![lost](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/dirty.png)
+
+### Non-repeatable reads
+
+A nonrepeatable read occurs when a transaction reads the same row twice but gets different data each time. For example, suppose transaction 1 reads a row. Transaction 2 updates or deletes that row and commits the update or delete. If transaction 1 rereads the row, it retrieves different row values or discovers that the row has been deleted.
+
+![lost](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/non-rep.png)
+
+### Phantom read
+
+A phantom is a row that matches the search criteria but is not initially seen. For example, suppose transaction 1 reads a set of rows that satisfy some search criteria. Transaction 2 generates a new row (through either an update or an insert) that matches the search criteria for transaction 1. If transaction 1 reexecutes the statement that reads the rows, it gets a different set of rows.
+
+![lost](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/phantom.png)
