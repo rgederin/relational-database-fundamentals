@@ -684,6 +684,8 @@ A transaction is a single logical unit of work which accesses and possibly modif
 
 In order to maintain consistency in a database, before and after transaction, certain properties are followed. These are called **ACID properties**.
 
+The ACID properties, in totality, provide a mechanism to ensure correctness and consistency of a database in a way such that each transaction is a group of operations that acts a single unit, produces consistent results, acts in isolation from other operations and updates that it makes are durably stored.
+
 ### ACID
 
 **Atomicity**
