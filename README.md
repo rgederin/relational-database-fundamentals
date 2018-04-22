@@ -1106,6 +1106,18 @@ Triggers are event-condition-action rules.
 
 They specify that whenever a certain type of event occurs in the database, check the condition over the database and if it's true execute an action automatically.
 
+Triggers can be written for the following purposes:
+
+* Generating some derived column values automatically
+* Enforcing referential integrity
+* Event logging and storing information on table access
+* Auditing
+* Synchronous replication of tables
+* Imposing security authorizations
+* Preventing invalid transactions
+
+**Implementations for different RDBMS vary significantly**
+
 ## Trigger structure
 
 ```
@@ -1125,5 +1137,70 @@ action
 * {INSERT [OR] | UPDATE [OR] | DELETE} − This specifies the DML operation.
 * [OF col_name] − This specifies the column name that will be updated.
 * [ON table_name] − This specifies the name of the table associated with the trigger.
-* 
+* [REFERENCING OLD AS o NEW AS n] − This allows you to refer new and old values for various DML statements, such as INSERT, UPDATE, and DELETE.
+* [FOR EACH ROW] − This specifies a row-level trigger, i.e., the trigger will be executed for each row being affected. Otherwise the trigger will execute just once when the SQL statement is executed, which is called a table level trigger.
+* WHEN (condition) − This provides a condition for rows for which the trigger would fire. This clause is valid only for row-level triggers.
+
+## Triggers examples
+
+Designed for SQLite
+
+AFTER-INSERT TRIGGER - New students with GPA between 3.3 and 3.6 automatically apply to geology major at Stanford and biology at MIT
+
+```
+create trigger R1
+after insert on Student
+for each row
+when New.GPA > 3.3 and New.GPA <= 3.6
+begin
+  insert into Apply values (New.sID, 'Stanford', 'geology', null);
+  insert into Apply values (New.sID, 'MIT', 'biology', null);
+end;
+```
+
+AFTER-DELETE TRIGGER - Cascaded delete for Apply(sID) references Student(sID)
+
+```
+create trigger R2
+after delete on Student
+for each row
+begin
+  delete from Apply where sID = Old.sID;
+end;
+```
+
+AFTER-UPDATE TRIGGER - Cascaded update for Apply(cName) references College(cName)
+
+```
+create trigger R3
+after update of cName on College
+for each row
+begin
+  update Apply
+  set cName = New.cName
+  where cName = Old.cName;
+end;
+```
+
+BEFORE TRIGGERS, ACTION RAISING ERROR - Enforce key constraint on College.cName (ignore colleges with same names)
+
+```
+create trigger R4
+before insert on College
+for each row
+when exists (select * from College where cName = New.cName)
+begin
+  select raise(ignore);
+end;
+
+create trigger R5
+before update of cName on College
+for each row
+when exists (select * from College where cName = New.cName)
+begin
+  select raise(ignore);
+end;
+```
+
+
 
