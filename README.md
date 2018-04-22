@@ -1202,5 +1202,32 @@ begin
 end;
 ```
 
+TRIGGER CHAINING - When number of applicants exceeds 10, label College as 'Done'
 
+```
+create trigger R6
+after insert on Apply
+for each row
+when (select count(*) from Apply where cName = New.cName) > 10
+begin
+  update College set cName = cName || '-Done'
+  where cName = New.cName;
+end;
+```
 
+MORE COMPLEX TRIGGER - Automatically accept to Berkeley students with high GPAs from large high schools
+
+```
+create trigger AutoAccept
+after insert on Apply
+for each row
+when (New.cName = 'Berkeley' and
+      3.7 < (select GPA from Student where sID = New.sID) and
+      1200 < (select sizeHS from Student where sID = New.sID))
+begin
+  update Apply
+  set decision = 'Y'
+  where sID = New.sID
+  and cName = New.cName;
+end;
+```
