@@ -1077,3 +1077,25 @@ ALTER TABLE Persons
 DROP CHECK CHK_PersonAge;
 ```
 
+**DEFAULT Constraint**
+
+The DEFAULT constraint is used to provide a default value for a column.
+  
+The default value will be added to all new records IF no other value is specified.
+
+```
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255) DEFAULT 'Sandnes'
+);
+
+ALTER TABLE Persons
+ALTER City SET DEFAULT 'Sandnes';
+
+ALTER TABLE Persons
+ALTER City DROP DEFAULT;
+```
+
