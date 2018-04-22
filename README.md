@@ -6,7 +6,7 @@ The purpose of the relational model is to provide a declarative method for speci
 
 Most relational databases use the SQL data definition and query language; these systems implement what can be regarded as an engineering approximation to the relational model. A table in an SQL database schema corresponds to a predicate variable; the contents of a table to a relation; key constraints, other constraints, and SQL queries correspond to predicates. However, SQL databases deviate from the relational model in many details, and Codd fiercely argued against deviations that compromise the original principles. In relational data model the data is organized into tables. These tables are called relations.
 
-### Key Concepts  
+## Key Concepts  
 
 * **Schema** - structural description of relations in database.
 * **Instance** - actual contents at given point in time.
@@ -19,7 +19,7 @@ Most relational databases use the SQL data definition and query language; these 
 
 ![relational-model](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/relational_model.png)
 
-### Advantages of relational databases
+## Advantages of relational databases
 
 * **Query flexibility.** As long as your schema is normalized, you don’t have to know up front how you will query your data. You can always gather together the data you want using joins, views, filter and indexes.
 * **Consistency via ACID transactions.** The relational database ensures that your commits are always atomic, consistent, isolated and durable. If an error occurrs, the whole transaction can be rolled back, restoring a consistent state. This is critical in some domains (e.g. banking).
@@ -27,7 +27,7 @@ Most relational databases use the SQL data definition and query language; these 
 * **Maturity.** 45+ years of industry experience leading to mature databases, tools, driver, programming libraries, ORM. Knowledge of RDBMS is a basic skill every software developer has.
 * **Huge toolkit** (trigger, stored procedures, advanced indexes, views) available.
 
-### Disadvantages of relational databases
+## Disadvantages of relational databases
 
 * Impedance mismatch between the object-oriented and the relational world.
 * The relational data model doesn’t fit in with every domain.
@@ -38,13 +38,13 @@ Most relational databases use the SQL data definition and query language; these 
 [Great article about pros and cons of relational databases](https://blog.philipphauer.de/relational-databases-strength-weaknesses-mongodb/)
 
 
-## Relational algebra
+# Relational algebra
 
 Relational algebra, first created by Edgar F. Codd while at IBM, is a family of algebras with a well-founded semantics used for modelling the data stored in relational databases, and defining queries on it.
 
 The main application of relational algebra is providing a theoretical foundation for relational databases, particularly query languages for such databases, chief among which is SQL.
 
-### Basic Relational algebra operations
+## Basic Relational algebra operations
 
 For understanding it is important to remember that the **result of any operation of algebra over relations is another relationship**, which can then also be used in other operations.
 
@@ -108,7 +108,7 @@ Rename operator is used to give another name to a relation. To rename STUDENT re
 ρ(STUDENT1, STUDENT)
 ```
 
-#### Extended Relational algebra operations
+### Extended Relational algebra operations
 
 Extended operators are those operators which can be derived from basic operators.There are mainly three types of extended operators in Relational Algebra:
 
@@ -162,7 +162,7 @@ Division operator A÷B can be applied if and only if:
 
 ![sql](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/sql.jpg)
 
-## Structured Query Language (SQL)
+# Structured Query Language (SQL)
 
 Structured Query Language is a standard Database language which is used to create, maintain and retrieve the relational database.
 
@@ -208,7 +208,7 @@ GRANT : allow specified users to perform specified tasks.
 REVOKE : cancel previously granted or denied permissions.
 ```
 
-## SQL examples
+# SQL examples
 
 For all examples I will use next database which consists of 3 tables:
 
@@ -224,7 +224,7 @@ And finally, the application information, that tells us that a particular studen
 
 ![sql](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/db-str.png)
 
-### Basic select
+## Basic select
 
 IDs, names, and GPAs of students with GPA > 3.6:
 
@@ -318,7 +318,7 @@ select sID, sName, GPA, sizeHS, GPA*(sizeHS/1000.0) as scaledGPA
 from Student;
 ```
 
-### Table Variables and Set Operators
+## Table Variables and Set Operators
 
 Application information using table variables for increasing readability:
 
@@ -361,7 +361,7 @@ select sID from Apply where major = 'EE';
 ```
 
 
-### Subqueries
+## Subqueries
 
 Sub-queries are nested, select statements within the condition.
 
@@ -408,7 +408,7 @@ from (select sID, sName, GPA, GPA*(sizeHS/1000.0) as scaledGPA
 where abs(scaledGPA - GPA) > 1.0;
 ```
 
-### Aggregation functions
+## Aggregation functions
 
 These are functions that will appear in the select clause initially and what they do is they perform computations over sets of values in multiple rows of our relations, and the basic aggregation functions supported by every SQL system are minimum, maximum, some, average and count.
 
@@ -485,7 +485,7 @@ group by major
 having max(GPA) < (select avg(GPA) from Student);
 ```
 
-## Join Operators
+# Join Operators
 
 Student names and majors for which they've applied
 
@@ -580,7 +580,6 @@ from Student full outer join Apply using(sID);
 # Database normalization
 
 Normalization is the process of splitting relations into well structured relations that allow users to insert, delete, and update tuples without introducing database inconsistencies. Without normalization many problems can occur when trying to load an integrated conceptual model into the DBMS. These problems arise from relations that are generated directly from user views are called anomalies. There are three types of anomalies: update, deletion and insertion anomalies.
-
 
 ## Anomalies
 
@@ -678,7 +677,7 @@ COURSE (COURSE_NO, COURSE_NAME)
 
 The relation is in 3NF when it is in 2NF and each non-key attribute is not reliantly (non trasitively) dependent on the primary key. Simply put, the second rule requires you to move all non-key fields whose contents can relate to several table entries in separate tables.
 
-## Transactions
+# Transactions
 
 A transaction is a single logical unit of work which accesses and possibly modifies the contents of a database. Transactions access data using read and write operations.
 
@@ -686,7 +685,7 @@ In order to maintain consistency in a database, before and after transaction, ce
 
 The ACID properties, in totality, provide a mechanism to ensure correctness and consistency of a database in a way such that each transaction is a group of operations that acts a single unit, produces consistent results, acts in isolation from other operations and updates that it makes are durably stored.
 
-### ACID
+## ACID
 
 **Atomicity**
 
@@ -786,7 +785,7 @@ When using non-lock based concurrency control, no locks are acquired; however, i
 
 ![lost](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/isolation.png)
 
-## Indexes
+# Indexes
 
 An index is a data structure that optimize searching and accessing the data. It’s like an index at the back of a book. When your database start to grow, the performance will be a concern. Hence, getting directly to a specific row in a large table in the least possible time is a priority.
 
@@ -798,7 +797,7 @@ But, we have a better way to do that. An index, as we’ve mentioned, is a data 
 
 **By default, Most of the DBMS automatically create an index on primary and unique columns.**
 
-### How Indexes Work
+## How Indexes Work
 
 Let’s say that you have an index for a primary key. This will create an ordered list of primary key values in a separate table, each entry has a pointer points to the relative value in the original table.
 
@@ -810,7 +809,7 @@ And, definitely, you can create another index on another column, even if it’s 
 
 The decision for choosing another column (besides the primary key) to be indexed-ed can be delayed until the database has been used for a while. This is because we want to know how users are really using our database, and what kind of queries they’re running rather than how we hoped or thought.
 
-### Composit index
+## Composit index
 
 You can also create an index on a combination of columns, meaning if you often access the table using the first name, and last name, you can create an index on both, the first name and last name.
 
@@ -818,7 +817,7 @@ Now, the Index table will be sorted according to the first name, and for each va
 
 When you access the data, It’s more efficient to specify the columns in the right order as in the index definition. So, here, it should be first name, then last name, and not the vice-versa.
 
-### Clustered & Non-Clustered Indexes
+## Clustered & Non-Clustered Indexes
 
 A table can have only one clustered index, while it can have more than one non-clustered index.
 
@@ -840,7 +839,7 @@ Now it’s not as quick as using the clustered index. Why? We still need to read
 
 ![clustered](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/clustered.png)
 
-### Advantages/Disadvantages of using indexes
+## Advantages/Disadvantages of using indexes
 
 **Advantages**
 
@@ -853,7 +852,7 @@ Now it’s not as quick as using the clustered index. Why? We still need to read
 * Indexes take additional disk space.
 * Indexes slow down INSERT,UPDATE and DELETE, but will speed up UPDATE if the WHERE condition has an indexed field.  INSERT, UPDATE and DELETE becomes slower because on each operation the indexes must also be updated. 
 
-### Implementation
+## Implementation
 
 As we mentioned previously in the SQL tutorial, DDL operations manage table and index structure. That is, we can CREATE, ALTER, or DROP an index.
 
@@ -916,7 +915,7 @@ The DROP INDEX statement deletes an index a table. The DROP INDEX statement is m
 DROP INDEX index_name ON tbl_name;
 ```
 
-## SQL Constraints
+# SQL Constraints
 
 SQL constraints are used to specify rules for the data in a table.
 
@@ -935,7 +934,7 @@ The following constraints are commonly used in SQL:
 
 SQL snippets below adopted for MySQL
 
-**NOT NULL Constraint**
+## NOT NULL Constraint
 
 By default, a column can hold NULL values.
 
@@ -954,7 +953,7 @@ CREATE TABLE Persons (
 );
 ```
 
-**UNIQUE Constraint**
+## UNIQUE Constraint
 
 The UNIQUE constraint ensures that all values in a column are different.
 
@@ -986,7 +985,7 @@ CREATE TABLE Persons (
 );
 ```
 
-**PRIMARY KEY Constraint**
+## PRIMARY KEY Constraint
 
 The PRIMARY KEY constraint uniquely identifies each record in a database table.
 
@@ -1016,7 +1015,7 @@ CREATE TABLE Persons (
 );
 ```
 
-**FOREIGN KEY Constraint**
+## FOREIGN KEY Constraint
 
 A FOREIGN KEY is a key used to link two tables together.
 
@@ -1044,7 +1043,7 @@ The FOREIGN KEY constraint is used to prevent actions that would destroy links b
 
 The FOREIGN KEY constraint also prevents invalid data from being inserted into the foreign key column, because it has to be one of the values contained in the table it points to.
 
-**CHECK Constraint**
+## CHECK Constraint
 
 The CHECK constraint is used to limit the value range that can be placed in a column.
 
@@ -1077,7 +1076,7 @@ ALTER TABLE Persons
 DROP CHECK CHK_PersonAge;
 ```
 
-**DEFAULT Constraint**
+## DEFAULT Constraint
 
 The DEFAULT constraint is used to provide a default value for a column.
   
