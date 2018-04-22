@@ -108,7 +108,7 @@ Rename operator is used to give another name to a relation. To rename STUDENT re
 ρ(STUDENT1, STUDENT)
 ```
 
-### Extended Relational algebra operations
+## Extended Relational algebra operations
 
 Extended operators are those operators which can be derived from basic operators.There are mainly three types of extended operators in Relational Algebra:
 
@@ -485,7 +485,7 @@ group by major
 having max(GPA) < (select avg(GPA) from Student);
 ```
 
-# Join Operators
+## Join Operators
 
 Student names and majors for which they've applied
 
@@ -934,7 +934,7 @@ The following constraints are commonly used in SQL:
 
 SQL snippets below adopted for MySQL
 
-## NOT NULL Constraint
+### NOT NULL Constraint
 
 By default, a column can hold NULL values.
 
@@ -953,7 +953,7 @@ CREATE TABLE Persons (
 );
 ```
 
-## UNIQUE Constraint
+### UNIQUE Constraint
 
 The UNIQUE constraint ensures that all values in a column are different.
 
@@ -985,7 +985,7 @@ CREATE TABLE Persons (
 );
 ```
 
-## PRIMARY KEY Constraint
+### PRIMARY KEY Constraint
 
 The PRIMARY KEY constraint uniquely identifies each record in a database table.
 
@@ -1015,7 +1015,7 @@ CREATE TABLE Persons (
 );
 ```
 
-## FOREIGN KEY Constraint
+### FOREIGN KEY Constraint
 
 A FOREIGN KEY is a key used to link two tables together.
 
@@ -1043,7 +1043,7 @@ The FOREIGN KEY constraint is used to prevent actions that would destroy links b
 
 The FOREIGN KEY constraint also prevents invalid data from being inserted into the foreign key column, because it has to be one of the values contained in the table it points to.
 
-## CHECK Constraint
+### CHECK Constraint
 
 The CHECK constraint is used to limit the value range that can be placed in a column.
 
@@ -1076,7 +1076,7 @@ ALTER TABLE Persons
 DROP CHECK CHK_PersonAge;
 ```
 
-## DEFAULT Constraint
+### DEFAULT Constraint
 
 The DEFAULT constraint is used to provide a default value for a column.
   
