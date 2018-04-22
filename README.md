@@ -1098,3 +1098,32 @@ ALTER TABLE Persons
 ALTER City DROP DEFAULT;
 ```
 
+# Triggers
+
+A database trigger is procedural code that is automatically executed in response to certain events on a particular table or view in a database. The trigger is mostly used for maintaining the integrity of the information on the database. For example, when a new record (representing a new worker) is added to the employees table, new records should also be created in the tables of the taxes, vacations and salaries. Triggers can also be used to log historical data, for example to keep track of employees' previous salaries.
+
+Triggers are event-condition-action rules.
+
+They specify that whenever a certain type of event occurs in the database, check the condition over the database and if it's true execute an action automatically.
+
+## Trigger structure
+
+```
+CREATE [OR REPLACE ] TRIGGER trigger_name  
+{BEFORE | AFTER | INSTEAD OF }  
+{INSERT [OR] | UPDATE [OR] | DELETE}  
+[OF col_name]  
+ON table_name  
+[REFERENCING OLD AS o NEW AS n]  
+[FOR EACH ROW]  
+WHEN (condition)   
+action
+```
+
+* CREATE [OR REPLACE] TRIGGER trigger_name − Creates or replaces an existing trigger with the trigger_name.
+* {BEFORE | AFTER | INSTEAD OF} − This specifies when the trigger will be executed. The INSTEAD OF clause is used for creating trigger on a view.
+* {INSERT [OR] | UPDATE [OR] | DELETE} − This specifies the DML operation.
+* [OF col_name] − This specifies the column name that will be updated.
+* [ON table_name] − This specifies the name of the table associated with the trigger.
+* 
+
