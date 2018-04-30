@@ -1143,7 +1143,7 @@ action
 
 ## Triggers examples
 
-Designed for SQLite
+Designed for SQLite. Relations are the same as in SQL Examples section.
 
 AFTER-INSERT TRIGGER - New students with GPA between 3.3 and 3.6 automatically apply to geology major at Stanford and biology at MIT
 
@@ -1230,4 +1230,56 @@ begin
   where sID = New.sID
   and cName = New.cName;
 end;
+```
+
+# Views
+
+In a database, a view is the result set of a stored query on the data, which the database users can query just as they would in a persistent database collection object. This pre-established query command is kept in the database dictionary. Unlike ordinary base tables in a relational database, a view does not form part of the physical schema: as a result set, it is a virtual table computed or collated dynamically from data in the database when access to that view is requested. Changes applied to the data in a relevant underlying table are reflected in the data shown in subsequent invocations of the view.
+
+A view is nothing more than a SQL statement that is stored in the database with an associated name. A view is actually a composition of a table in the form of a predefined SQL query.
+
+A view can contain all rows of a table or select rows from a table. A view can be created from one or many tables which depends on the written SQL query to create a view.
+
+Views can provide advantages over tables:
+
+* Views can represent a subset of the data contained in a table. Consequently, a view can limit the degree of exposure of the underlying tables to the outer world: a given user may have permission to query the view, while denied access to the rest of the base table.
+* Views can join and simplify multiple tables into a single virtual table.
+* Views can act as aggregated tables, where the database engine aggregates data (sum, average, etc.) and presents the calculated results as part of the data.
+* Views can hide the complexity of data. For example, a view could appear as Sales2000 or Sales2001, transparently partitioning the actual underlying table.
+* Views take very little space to store; the database contains only the definition of a view, not a copy of all the data that it presents.
+* Depending on the SQL engine used, views can provide extra security.
+
+Just as a function (in programming) can provide abstraction, so can a database view. In another parallel with functions, database users can manipulate nested views, thus one view can aggregate data from other views. Without the use of views, the normalization of databases above second normal form would become much more difficult. Views can make it easier to create lossless join decomposition.
+
+## Read-only/updatable views
+
+Database practitioners can define views as read-only or updatable. If the database system can determine the reverse mapping from the view schema to the schema of the underlying base tables, then the view is updatable. INSERT, UPDATE, and DELETE operations can be performed on updatable views. Read-only views do not support such operations because the DBMS cannot map the changes to the underlying base tables. A view update is done by key preservation.
+
+Some systems support the definition of INSTEAD OF triggers on views. This technique allows the definition of other logic for execution in place of an insert, update, or delete operation on the views. Thus database systems can implement data modifications based on read-only views. However, an INSTEAD OF trigger does not change the read-only or updatable property of the view itself.
+
+## SQL for dealing with views
+
+SIMPLE ONE-TABLE VIEW - Student ID and college name of CS acceptances
+
+```
+create view CSaccept as
+select sID, cName
+from Apply
+where major = 'CS' and decision = 'Y';
+```
+
+VIEW LAYERING - Students accepted to CS at Berkeley with sizeHS > 500
+
+```
+create view CSberk as
+select Student.sID, sName, GPA
+from Student, CSaccept
+where Student.sID = CSaccept.sID and cName = 'Berkeley' and sizeHS > 500;
+
+```
+
+DROP VIEW
+
+```
+drop view CSaccept;
 ```
