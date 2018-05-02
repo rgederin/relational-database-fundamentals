@@ -1283,3 +1283,49 @@ DROP VIEW
 ```
 drop view CSaccept;
 ```
+
+## Materialized view
+
+In computing, a materialized view is a database object that contains the results of a query. For example, it may be a local copy of data located remotely, or may be a subset of the rows and/or columns of a table or join result, or may be a summary using an aggregate function.
+
+In any database management system following the relational model, a view is a virtual table representing the result of a database query. Whenever a query or an update addresses an ordinary view's virtual table, the DBMS converts these into queries or updates against the underlying base tables. A materialized view takes a different approach: the query result is cached as a concrete ("materialized") table (rather than a view as such) that may be updated from the original base tables from time to time. This enables much more efficient access, at the cost of extra storage and of some data being potentially out-of-date. Materialized views find use especially in data warehousing scenarios, where frequent queries of the actual base tables can be expensive.
+
+The integrity of data in materialized views is supported by periodic synchronization or using triggers.
+
+# Stored procedures
+
+A stored procedure is a database object that is a set of SQL statements that is compiled once and stored on the server. Stored procedures are very similar to ordinary procedures of high-level languages, they can have input and output parameters and local variables, they can perform numerical calculations and operations on symbolic data, the results of which can be assigned to variables and parameters. Stored procedures can perform standard database operations (both DDL and DML). In addition, in stored procedures, loops and branchings are possible, that is, instructions for controlling the execution process can be used.
+
+Uses for stored procedures include data-validation (integrated into the database) or access-control mechanisms. Furthermore, stored procedures can consolidate and centralize logic that was originally implemented in applications. To save time and memory, extensive or complex processing that requires execution of several SQL statements can be saved into stored procedures, and all applications call the procedures. One can use nested stored procedures by executing one stored procedure from within another.
+
+Stored procedures may return result sets, i.e., the results of a SELECT statement. Such result sets can be processed using cursors, by other stored procedures, by associating a result-set locator, or by applications. Stored procedures may also contain declared variables for processing data and cursors that allow it to loop through multiple rows in a table. Stored-procedure flow-control statements typically include IF, WHILE, LOOP, REPEAT, and CASE statements, and more. Stored procedures can receive variables, return results or modify variables and return them, depending on how and where the variable is declared.
+
+## SP Advantages
+
+**Overhead**
+
+Because stored procedure statements are stored directly in the database, they may remove all or part of the compiling overhead that is typically needed in situations where software applications send inline (dynamic) SQL queries to a database. (However, most database systems implement statement caches and other methods to avoid repetitively compiling dynamic SQL statements.) Also, while they avoid some pre-compiled SQL, statements add to the complexity of creating an optimal execution plan because not all arguments of the SQL statement are supplied at compile time. Depending on the specific database implementation and configuration, mixed performance results will be seen from stored procedures versus generic queries or user defined functions.
+
+**Avoiding network traffic**
+
+A major advantage of stored procedures is that they can run directly within the database engine. In a production system, this typically means that the procedures run entirely on a specialized database server, which has direct access to the data being accessed. The benefit here is that network communication costs can be avoided completely. This becomes more important for complex series of SQL statements.
+
+**Encapsulating business logic**
+
+Stored procedures allow programmers to embed business logic as an API in the database, which can simplify data management and reduce the need to encode the logic elsewhere in client programs. This can result in a lesser likelihood of data corruption by faulty client programs. The database system can ensure data integrity and consistency with the help of stored procedures.
+
+**Delegating access-rights**
+
+In many systems, stored procedures can be granted access rights to the database that users who execute those procedures do not directly have.
+
+**Some protection from SQL injection attacks**
+
+Stored procedures can be used to protect against injection attacks. Stored procedure parameters will be treated as data even if an attacker inserts SQL commands. Also, some DBMS will check the parameter's type. However, a stored procedure that in turn generates dynamic SQL using the input is still vulnerable to SQL injections unless proper precautions are taken.
+
+## SP Disadvantages
+
+* **Stored procedure languages are often vendor-specific.** Changing database vendors usually requires rewriting existing stored procedures.
+* Stored procedure languages from different vendors have different levels of sophistication. For example, Postgres' pgpsql has more language features (especially via extensions) than Microsoft's T-SQL.
+* Tool support for writing and debugging stored procedures is often not as good as for other programming languages, but this differs between vendors and languages. For example, both PL/SQL and T-SQL have dedicated IDEs and debuggers. PL/PgSQL can be debugged from various IDEs.
+* Changes to stored procedures are harder to keep track of within a version control system than other code. Changes must be reproduced as scripts to be stored in the project history to be included, and differences in procedures can be harder to merge and track correctly.
+
