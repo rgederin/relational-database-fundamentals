@@ -1,3 +1,7 @@
+# Relational databases fundamentals
+
+In this repository you will find short overview about key concepts about relational databases.
+
 # Table of Contents
 
 - [Relational model](#relational-model)
