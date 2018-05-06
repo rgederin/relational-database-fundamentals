@@ -1329,3 +1329,40 @@ Stored procedures can be used to protect against injection attacks. Stored proce
 * Tool support for writing and debugging stored procedures is often not as good as for other programming languages, but this differs between vendors and languages. For example, both PL/SQL and T-SQL have dedicated IDEs and debuggers. PL/PgSQL can be debugged from various IDEs.
 * Changes to stored procedures are harder to keep track of within a version control system than other code. Changes must be reproduced as scripts to be stored in the project history to be included, and differences in procedures can be harder to merge and track correctly.
 
+# Scalability
+
+Historically, database systems adopted two main approaches to scalability, which enables a database to accommodate more user data and process more application workload. They would scale up (called vertical scalability) and scale out (called horizontal scalability).
+
+Scalability can be measured in various dimensions, such as:
+
+* Administrative scalability: The ability for an increasing number of organizations or users to easily share a single distributed system.
+* Functional scalability: The ability to enhance the system by adding new functionality at minimal effort.
+* Geographic scalability: The ability to maintain performance, usefulness, or usability regardless of expansion from concentration in a local area to a more distributed geographic pattern.
+* Load scalability: The ability for a distributed system to easily expand and contract its resource pool to accommodate heavier or lighter loads or number of inputs. Alternatively, the ease with which a system or component can be modified, added, or removed, to accommodate changing load.
+* Generation scalability: The ability of a system to scale up by using new generations of components. Thereby, heterogeneous scalability is the ability to use the components from different vendors
+
+## Vertical Database Scalability
+
+To scale up usually refers to adding more physical resources — that is, increasing CPU, memory, and storage for an existing server or adding a bigger one. In essence with vertical scalability:
+
+* Application compatibility is prioritized—there’s no need for code changes.
+* Administrative efforts are reduced with only a single system image to manage.
+* Hardware configurations tend to be more expensive, although today’s quickly evolving hardware provides incredibly efficient server components with great price-performance ratios.
+* Software costs (typically charged by the number of cores) can increase.
+
+This approach also comes with at least a couple of limitations:
+
+* What happens when a workload cannot fit onto the best-equipped hardware configuration?
+* What if a workload is highly variable? Why make an upfront investment in an expensive, large-capacity system that could go underutilized much of the time? For this reason alone, many cloud providers do not rely solely on vertical scalability.
+
+## Horizontal Database Scalability
+
+Horizontal scalability accommodates variable workloads by hosting data across multiple databases. Unlike vertical scalability, scale-out approaches can help reduce costs by making use of less sophisticated hardware components, freeing resources for more in-application development and data and system maintenance.
+
+You can use any of several well-known approaches to scaling out data tiers. The one you choose depends on your workload and the applications supported by the data store. Most people choose functional partitioning in which a data set is decomposed into business or organizational functionalities.
+
+Three main concepts for horizontal database scalability are:
+
+* Partitioning 
+* Replication
+* Sharding
