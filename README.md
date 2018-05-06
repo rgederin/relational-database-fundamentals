@@ -1395,13 +1395,35 @@ Vertical partitioning involves creating tables with fewer columns and using addi
 
 The mechanism for synchronizing the contents of multiple copies of an object (for example, the contents of a database).
 
-## Master-slave replication
+## Master-slaves replication
 
 The master logs the updates, which then ripple through to the slaves. The slave outputs a message stating that it has received the update successfully, thus allowing the sending (and potentially re-sending until successfully applied) of subsequent updates.
 
-the main database server is available for reading and writing, the replica is readable or not available at all. The data on the matser and the replica are identical.
+The main database server is available for reading and writing, the replica is readable or not available at all. The data on the matser and the replica are identical.
 
 ![clustered](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/db_replication.jpg)
 
+## Multi masters replication
 
+Multi-master replication is a method of database replication which allows data to be stored by a group of computers, and updated by any member of the group. All members are responsive to client data queries. The multi-master replication system is responsible for propagating the data modifications made by each member to the rest of the group, and resolving any conflicts that might arise between concurrent changes made by different members.
 
+Multi-master replication can be contrasted with master-slave replication, in which a single member of the group is designated as the "master" for a given piece of data and is the only node allowed to modify that data item. Other members wishing to modify the data item must first contact the master node. Allowing only a single master makes it easier to achieve consistency among the members of the group, but is less flexible than multi-master replication.
+
+Multi-master replication can also be contrasted with failover clustering where passive slave servers are replicating the master data in order to prepare for takeover in the event that the master stops functioning. The master is the only server active for client interaction.
+
+The primary purposes of multi-master replication are increased availability and faster server response time.
+
+**Advantages**
+
+* If one master fails, other masters continue to update the database.
+* Masters can be located in several physical sites, i.e. distributed across the network.
+
+**Disadvantages**
+
+* Most multi-master replication systems are only loosely consistent, i.e. lazy and asynchronous, violating ACID properties.
+* Eager replication systems are complex and increase communication latency.
+* Issues such as conflict resolution can become intractable as the number of nodes involved rises and latency increases.
+
+![clustered](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/repl-multinode-04.gif)
+
+repl-multinode-04.gif
