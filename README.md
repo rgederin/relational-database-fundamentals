@@ -5,6 +5,10 @@
     * [Advantages of relational databases](#advantages-of-relational-databases)
     * [Disadvantages of relational databases](#disadvantages-of-relational-databases)
 - [Relational algebra](#relational-algebra)
+    * [Basic Relational algebra operations](#basic-relational-algebra-operations)
+    * [Extended Relational algebra operations](#extended-relational-algebra-operations)
+- [Structured Query Language (SQL)](#structured-query Language-(sql))
+- [SQL examples](#sql-examples)
 
 
 # Relational model
