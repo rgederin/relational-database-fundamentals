@@ -1,7 +1,7 @@
 # Table of Contents
 
-- [Relational model](#Relational-model)
-    * [Key Concepts](#Key-Concepts)
+- [Relational model](#relational-model)
+    * [Key Concepts](#key-concepts)
 
 
 # Relational model
