@@ -1395,7 +1395,7 @@ Vertical partitioning involves creating tables with fewer columns and using addi
 
 The mechanism for synchronizing the contents of multiple copies of an object (for example, the contents of a database).
 
-## Master-slaves replication
+### Master-slaves replication
 
 The master logs the updates, which then ripple through to the slaves. The slave outputs a message stating that it has received the update successfully, thus allowing the sending (and potentially re-sending until successfully applied) of subsequent updates.
 
@@ -1403,7 +1403,7 @@ The main database server is available for reading and writing, the replica is re
 
 ![clustered](https://github.com/rgederin/relational-database-fundamentals/blob/master/img/db_replication.jpg)
 
-## Multi masters replication
+### Multi masters replication
 
 Multi-master replication is a method of database replication which allows data to be stored by a group of computers, and updated by any member of the group. All members are responsive to client data queries. The multi-master replication system is responsible for propagating the data modifications made by each member to the rest of the group, and resolving any conflicts that might arise between concurrent changes made by different members.
 
