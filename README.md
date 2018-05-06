@@ -2,6 +2,9 @@
 
 - [Relational model](#relational-model)
     * [Key Concepts](#key-concepts)
+    * [Advantages of relational databases](#advantages-of-relational-databases)
+    * [Disadvantages of relational databases](#disadvantages-of-relational-databases)
+- [Relational algebra](#relational-algebra)
 
 
 # Relational model
