@@ -1,3 +1,9 @@
+# Table of Contents
+
+- [Relational model](#Relational-model)
+    * [Key Concepts](#Key-Concepts)
+
+
 # Relational model
 
 The relational model for database management is an approach to managing data using a structure and language consistent with first-order predicate logic, first described in 1969 by Edgar F. Codd, where all data is represented in terms of tuples, grouped into relations. A database organized in terms of the relational model is a relational database.
